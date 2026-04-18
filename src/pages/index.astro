@@ -1,17 +1,161 @@
 ---
+import BackgroundBlobFrames from "../components/BackgroundBlobFrames.astro";
+import Layout from "../layouts/BaseLayout.astro";
+import Data from "../data/CoreData.json";
+import Logo from "../assets/prairie_clover.svg";
+import { transitionEnabledOnThisPage } from "astro:transitions/client";
 
+const {
+	phone,
+	email,
+	instagramUrl,
+	businessSiteUrl,
+	businessSiteLabel,
+	brands,
+	aboutTitle,
+	aboutLead,
+	aboutParagraphs,
+	address,
+	city,
+	province,
+	zip,
+	country,
+	mapEmbedUrl,
+	developer,
+} = Data;
+
+const mapQuery = `${address}, ${city}, ${province} ${zip}, ${country}`;
+const mapEmbedSrc =
+	typeof mapEmbedUrl === "string" && mapEmbedUrl.trim().length > 0
+		? mapEmbedUrl.trim()
+		: `https://maps.google.com/maps?q=${encodeURIComponent(mapQuery)}&z=15&output=embed`;
+const mapsOpenHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`;
+
+const developerUrl = `https://${developer}`;
+
+const emailLink = `mailto:${email}`;
+const phoneNumber = `tel:${String(phone).replace(/\D/g, "")}`;
+const copyright = new Date().getFullYear();
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="Home" description="Welcome to Prairie Clover">
+	<header>
+		<a href="#top" id="header-logo-link" class="header-logo-link header-logo-link--pending">
+			<Logo width="800" height="400" />
+		</a>
+	</header>
+	<div id="logo-intro" class="logo-intro" aria-hidden="true">
+		<div class="logo-intro-stage">
+			<Logo width="800" height="400" />
+		</div>
+	</div>
+	<main>
+		<section id="hero" class="motion-fade hero-with-blobs">
+			<BackgroundBlobFrames />
+			<div class="hero-content">
+				<h1>Curated local artisan & vintage goods.</h1>
+				<p>Searching for something with that vintage charm or classic look can be really hard which is why we are here.</p>
+			</div>
+		</section>
+		<section id="brands" class="brands-scroll-section motion-fade" aria-label="Brands and partners">
+			<p class="brands-scroll-eyebrow">Carrying &amp; collaborating with</p>
+			<div class="brands-scroll-viewport">
+				<div class="brands-scroll-track">
+					<ul class="brands-scroll-list">
+						{brands.map((name) => (
+							<li class="brands-scroll-item">
+								<span class="brands-scroll-name">{name}</span>
+							</li>
+						))}
+					</ul>
+					<ul class="brands-scroll-list" aria-hidden="true">
+						{brands.map((name) => (
+							<li class="brands-scroll-item">
+								<span class="brands-scroll-name">{name}</span>
+							</li>
+						))}
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		
+		<section id="about" class="motion-fade about-section">
+			<div class="about-inner about-inner--split">
+				<div class="about-copy">
+					<h2 class="about-title">{aboutTitle}</h2>
+					<p class="about-lead">{aboutLead}</p>
+					<div class="about-body">
+						{aboutParagraphs.map((text) => (
+							<p class="about-paragraph">{text}</p>
+						))}
+					</div>
+				</div>
+				<div class="about-map">
+					<div class="about-map-frame">
+						<iframe
+							title="Location map"
+							src={mapEmbedSrc}
+							loading="lazy"
+							referrerpolicy="no-referrer-when-downgrade"
+							allowfullscreen
+						/>
+					</div>
+					<p class="about-map-caption">
+						<a href={mapsOpenHref} target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
+						<span class="about-map-address">{address}, {city}, {province} {zip}</span>
+					</p>
+				</div>
+			</div>
+		</section>
+		
+		<section id="contact">
+			<div id="card" class="motion-fade">
+				<h2>Contact</h2>
+				<p class="contact-lede">
+					Follow along on Instagram, browse our sister shop online, or reach out directly by phone or email.
+				</p>
+				<div class="contact-columns">
+					<div class="contact-col">
+						<h3 class="contact-col-title fade-up">Instagram</h3>
+						<p class="contact-col-hint fade-up">Photos, new arrivals, and market days.</p>
+						<a
+							class="fade-up contact-pill"
+							href={instagramUrl}
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							<span>Open Instagram</span>
+						</a>
+					</div>
+					<div class="contact-col">
+						<h3 class="contact-col-title fade-up">{businessSiteLabel}</h3>
+						<p class="contact-col-hint fade-up">Our design studio for weddings and florals.</p>
+						<a class="fade-up contact-pill" href={businessSiteUrl} target="_blank" rel="noopener noreferrer">
+							<span>Visit website</span>
+						</a>
+					</div>
+					<div class="contact-col contact-col--actions">
+						<h3 class="contact-col-title fade-up">Call &amp; email</h3>
+						<p class="contact-col-hint fade-up">We will get back to you as soon as we can.</p>
+						<div class="contact-stack">
+							<a class="fade-up contact-pill" href={phoneNumber}>
+								<span>Call {phone}</span>
+							</a>
+							<a class="fade-up contact-pill" href={emailLink}>
+								<span>Email</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+	<footer>
+			<p style="font-size:24px;">© {copyright} <span style="font-weight:600; font-family:--font-garamond;">Prairie Clover</span> — <span style="font-style:italic;">All rights reserved</span></p>
+			<div id="developer" style="font-size:24;">
+				<p>💐</p>
+				<a href={developerUrl} style=font-size:24px;>talson.dev</a>
+			</div>
+	</footer>
+</Layout>

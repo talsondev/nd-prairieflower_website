@@ -1,0 +1,32 @@
+{
+    "name": "Prairie Clover",
+    "description": "Contemporary home goods and vintage.",
+    "instagramUrl": "https://www.instagram.com/prairie_clover2/",
+    "businessSiteUrl": "https://touchofedendesign.com/",
+    "businessSiteLabel": "Touch of Eden",
+    "phone": "(403) 111-1111",
+    "address": "1816B 20 St",
+    "city": "Didsbury",
+    "province": "AB",
+    "zip": "T0M0W0",
+    "country": "CA",
+    "email": "touchofedendesign@gmail.com",
+    "brands": [
+        "Local artisan",
+        "Vintage finds",
+        "Home textiles",
+        "Small-batch ceramics",
+        "Market days",
+        "Curated gifts",
+        "Touch of Eden",
+        "Prairie Clover"
+    ],
+    "aboutTitle": "About Prairie Clover",
+    "aboutLead": "We bring together local makers, vintage pieces, and everyday goods that feel considered and warm.",
+    "aboutParagraphs": [
+        "Replace this paragraph with your story: how you started, what you look for at markets, and what shoppers can expect when they visit.",
+        "Add a second paragraph for hours, location, or values—whatever helps people connect before they reach out."
+    ],
+    "mapEmbedUrl": "",
+    "developer": "talson.dev"
+}

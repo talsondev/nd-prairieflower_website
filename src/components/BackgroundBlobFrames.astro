@@ -1,0 +1,135 @@
+---
+import prairieFlowers from "../assets/prairie_flowers.png";
+import paperTexture from "../assets/white-paper-texture.jpg";
+import prairieCeramics from "../assets/prairie_ceramics2.png";
+import prairieVintage from "../assets/prairie_vintage2.png";
+---
+
+<div class="blob-frames" aria-hidden="true">
+	<svg class="blob-frames-svg-defs" width="0" height="0" aria-hidden="true">
+		<defs>
+			<clipPath id="blob-frames-clip" clipPathUnits="objectBoundingBox">
+				<path id="blob-frames-path" d="M 0.5 0.1 Q 0.9 0.5 0.5 0.9 Q 0.1 0.5 0.5 0.1 Z" />
+			</clipPath>
+		</defs>
+	</svg>
+
+	<div
+		class="blob-frame blob-frame--a"
+		style={`background-image: url('${prairieFlowers.src}')`}
+	>
+	</div>
+	<div
+		class="blob-frame blob-frame--b"
+		style={`background-image: url('${prairieCeramics.src}')`}
+	>
+	</div>
+	<div
+		class="blob-frame blob-frame--c"
+		style={`background-image: url('${prairieVintage.src}')`}
+	>
+	</div>
+</div>
+
+<style>
+	.blob-frames {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		max-width: 100%;
+		z-index: 0;
+		pointer-events: none;
+		overflow: visible;
+		--blob-mx: 0;
+		--blob-my: 0;
+		--blob-parallax-x: 0;
+		--blob-parallax-y: 0;
+		--blob-scroll: 0;
+	}
+
+	.blob-frames-svg-defs {
+		position: absolute;
+		width: 0;
+		height: 0;
+		overflow: hidden;
+	}
+
+	.blob-frame {
+		position: absolute;
+		clip-path: url(#blob-frames-clip);
+		/* Favor vertical framing: fill height, let width extend (blob clips sides). */
+		background-size: auto 100%;
+		background-position: center center;
+		background-repeat: no-repeat;
+		opacity: 0.55;
+		filter: saturate(1.08) contrast(1.02);
+		will-change: transform;
+	}
+
+	.blob-frame--a {
+		width: clamp(132px, 22vw, 220px);
+		height: clamp(220px, 36vh, 400px);
+		left: clamp(12px, 4vw, 56px);
+		top: clamp(4%, 7vh, 12%);
+		bottom: auto;
+		opacity: 1;
+		transform: translate(
+				calc(var(--blob-parallax-x) * 34px + var(--blob-scroll) * -20px),
+				calc(var(--blob-parallax-y) * 30px + var(--blob-scroll) * 14px)
+			)
+			rotate(-8deg);
+	}
+
+	.blob-frame--b {
+		width: clamp(120px, 20vw, 200px);
+		height: clamp(260px, 44vh, 420px);
+		right: clamp(12px, 4vw, 56px);
+		top: clamp(36%, 38vh, 52%);
+		background-size: auto 100%;
+		transform: translate(
+				calc(var(--blob-parallax-x) * -40px + var(--blob-scroll) * 16px),
+				calc(var(--blob-parallax-y) * 28px + var(--blob-scroll) * -12px)
+			)
+			rotate(14deg);
+		opacity: 1;
+	}
+
+	.blob-frame--c {
+		width: clamp(120px, 20vw, 200px);
+		height: clamp(220px, 34vh, 400px);
+		left: clamp(12px, 4vw, 56px);
+		/* Anchor from top so a clear gap stays under blob A (avoids overlap with bottom-anchored tall frames). */
+		top: clamp(50vh, 54%, 62%);
+		bottom: auto;
+		opacity: 1;
+		transform: translate(
+				calc(var(--blob-parallax-x) * 28px + var(--blob-scroll) * 12px),
+				calc(var(--blob-parallax-y) * -34px + var(--blob-scroll) * -18px)
+			)
+			rotate(5deg);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.blob-frame {
+			transform: none;
+			opacity: 0.4;
+		}
+
+		.blob-frame--a,
+		.blob-frame--b,
+		.blob-frame--c {
+			opacity: 1;
+		}
+	}
+
+	@media (max-width: 720px) {
+		.blob-frame--a {
+			height: clamp(200px, 32vh, 320px);
+		}
+
+		.blob-frame--c {
+			height: clamp(200px, 30vh, 300px);
+			top: clamp(48vh, 50%, 58%);
+		}
+	}
+</style>
